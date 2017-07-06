@@ -59,10 +59,13 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: sans-serif;
+  font-size: 1.2em;
 }
 
-/* line 25, style.scss */
-#space {
+/* line 27, style.scss */
+#cube_1 {
+  border: 1px solid green;
   background-color: black;
   width: 100%;
   height: 100%;
@@ -71,45 +74,68 @@ html, body {
   top: 0px;
 }
 
-/* line 35, style.scss */
-#buttons {
+/* line 37, style.scss */
+#buttons_wrapper {
   position: fixed;
   top: 24px;
   left: 24px;
 }
-/* line 40, style.scss */
-#buttons li {
+/* line 42, style.scss */
+#buttons_wrapper div, #buttons_wrapper label, #buttons_wrapper .button {
+  background-color: white;
   height: 24px;
-  margin-bottom: 24px;
-}
-/* line 44, style.scss */
-#buttons li label, #buttons li .button {
-  background: white;
-  width: 24px;
-  height: 100%;
-  margin-right: 12px;
+  padding: 6px 4px 4px 4px;
+  margin: 0 12px 12px 0;
   display: inline-block;
   vertical-align: top;
-  padding: 6px 4px 2px 4px;
   text-align: center;
-  font-family: sans-serif;
-  font-size: 1.2em;
+  cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-/* line 62, style.scss */
-#buttons li label {
-  background-color: #bbb;
+/* line 58, style.scss */
+#buttons_wrapper #buttons_toggle {
+  padding: 4px 8px 2px 8px;
 }
-/* line 65, style.scss */
-#buttons li .button {
-  cursor: pointer;
+/* line 61, style.scss */
+#buttons_wrapper .button {
+  width: 24px;
+}
+/* line 64, style.scss */
+#buttons_wrapper label {
+  background-color: #bbb;
+  width: 24px;
 }
 /* line 68, style.scss */
-#buttons li .button.off {
+#buttons_wrapper .cube_control {
+  border-radius: 0;
+  width: 48px;
+}
+/* line 72, style.scss */
+#buttons_wrapper .off {
   background: black;
   color: white;
+}
+
+/* line 78, style.scss */
+.ui-slider-handle {
+  top: 1px !important;
+  margin-left: -6px !important;
+  width: 12px !important;
+}
+
+/* line 84, style.scss */
+#tooltip {
+  background-color: beige;
+  height: 24px;
+  padding: 4px 8px 2px 8px;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  display: none;
 }

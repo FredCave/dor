@@ -91,6 +91,7 @@ function get_cubes () {
 
                         // ORDER USED IN JS CODE
                         // ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+                        $layer["layer-" . $j]["name"]      = get_sub_field("layer_name");
 
                         // LOOP THROUGH IMAGES
                         $layer["layer-" . $j]["east"]      = get_sub_field("layer_east"); // POSX

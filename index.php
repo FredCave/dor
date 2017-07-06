@@ -4,16 +4,15 @@
 
 <div id="space"></div>
 
-<div id="cube_1"></div>
-<div id="cube_2"></div>
-<div id="cube_3"></div>
-<div id="cube_4"></div>
-<div id="cube_5"></div>
-<div id="cube_6"></div>
+    <div id="buttons_wrapper">
 
-    <ul id="buttons">
+        <div id="buttons_toggle">Hide Controls</div>
 
-    </ul>
+        <ul id="buttons"></ul>
+
+    </div>
+
+    <div id="tooltip"></div>
 
 </body>
 

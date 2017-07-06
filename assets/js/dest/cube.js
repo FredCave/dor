@@ -99,57 +99,40 @@ var Space = {
         // ADD LI IN BUTTON WRAPPER
         Page.addCubeButtons();
 
-        // LAYER INDEX TO IDENTIFY LAYERS
-        var layerIndex = 1;
-
         // LOOP THROUGH ALL LAYERS
         _.each( thisCube, function( layer ){
 
             // LAYER = OBJECT
-            self.generateLayer( layer, layerIndex );
-            layerIndex++;
+            self.generateLayer( layer );
 
         });
 
-        // ADD CUBE CONTROLS AT END OF ROW
-        Page.addControls();
-
         this.cubeIndex++;
-        if ( this.cubeIndex < 6 ) {
+        while ( this.cubeIndex < 6 ) {
             this.generateCube();
-        } else if ( this.cubeIndex === 6  ) {
-
-            Page.controlsInit();
-
         }
 
     }, 
 
-    generateLayer : function ( layerData, layerIndex ) {
+    generateLayer : function ( layerData ) {
 
         console.log("Space.generateLayer");
 
-        // console.log( 121, layerData );
+        console.log( 121, layerData );
 
         var cubeSize = 5000;
 
         var dataComplete = true;
 
-        // SORT THROUGH DATA
-            // LOAD IMAGE SRCs INTO ARRAY
-            // STORE LAYER NAME TO ADD TO BUTTON
-
+        // LOAD IMAGE SRCs INTO ARRAY
         // LOOP THROUGH LAYER OBJECT
-        var sources = [], 
-            layerName;
+        var sources = [];
         for ( var index in layerData ) {
             if ( layerData.hasOwnProperty(index) ) {
                 if ( layerData[index] === false ) {
                     // CHECK IF IMAGES ARE LOADED
                     dataComplete = false;
                     console.log( 135, "Data Incomplete" );
-                } else if ( index === "name" ) {
-                    layerName = layerData[index];
                 } else {
                     sources.push( layerData[index].url );                    
                 }
@@ -166,50 +149,19 @@ var Space = {
                 materialArray.push( new THREE.MeshBasicMaterial({
                     map: THREE.ImageUtils.loadTexture( sources[i] ),
                     side: THREE.BackSide,
-                    transparent: true, 
-                    opacity: 0 
+                    transparent: true,  
                 }));            
             }
 
             var material = new THREE.MeshFaceMaterial( materialArray );
             var box = new THREE.Mesh( geometry, material );
-
-            // SET NAME
-            box.name = String.fromCharCode( 65 + this.cubeIndex ) + layerIndex;
-
-            console.log( 159, box );
-
             this.scene.add( box );
 
             // ADD BUTTON IN BUTTON WRAPPER
-            Page.addLayerButton( layerName );
+            Page.addLayerButton();
 
         }
 
     }, 
-
-    hideLayer : function ( id ) {
-
-        console.log("Space.hideLayer", id );
-
-        var box = this.scene.getObjectByName( id );
-        // LOOP THROUGH SIDES OF CUBE
-        _.each( box.material.materials, function ( material ) {
-            material.opacity = 0;
-        });
-
-    },
-
-    showLayer: function ( id ) {
-
-        console.log("Space.showLayer", id );
-
-        var box = this.scene.getObjectByName( id );
-        // LOOP THROUGH SIDES OF CUBE
-        _.each( box.material.materials, function ( material ) {
-            material.opacity = 1;
-        });
-
-    }
 
 }
