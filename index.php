@@ -2,7 +2,7 @@
 
 <body>
 
-<div id="space"></div>
+    <div id="space"></div>
 
     <div id="buttons_wrapper">
 

@@ -12,6 +12,7 @@ var Space = {
     clock       : new THREE.Clock(), 
 
     cubeIndex   : 0, 
+    axesVisible : true,
 
     init : function () {
 
@@ -45,6 +46,7 @@ var Space = {
   
         // AXES
         var axes = new THREE.AxisHelper(100);
+        axes.name = "axes";
         this.scene.add( axes );
 
         this.generateCube();
@@ -177,7 +179,7 @@ var Space = {
             // SET NAME
             box.name = String.fromCharCode( 65 + this.cubeIndex ) + layerIndex;
 
-            console.log( 159, box );
+            // console.log( 159, box );
 
             this.scene.add( box );
 
@@ -210,6 +212,80 @@ var Space = {
             material.opacity = 1;
         });
 
-    }
+    },
+
+    hideCube: function ( char ) {
+
+        console.log("Space.hideCube", char );
+
+        var layers = this.scene.children;
+        _.each( layers, function( layer ){
+            console.log( 222, layer );
+            // IF LAYER NAME CONTAINS CHAR
+            if ( layer.name.indexOf( char ) > -1 ) {
+                _.each( layer.material.materials, function ( material ) {
+                    material.opacity = 0;
+                });
+            }
+        });
+
+    }, 
+
+    showCube: function ( char ) {
+
+        console.log("Space.showCube", char );
+
+        var layers = this.scene.children;
+        _.each( layers, function( layer ){
+            // IF LAYER NAME CONTAINS CHAR
+            if ( layer.name.indexOf( char ) > -1 ) {
+                _.each( layer.material.materials, function ( material ) {
+                    material.opacity = 1;
+                });
+            }
+        });
+
+    }, 
+
+    toggleAxes: function () {
+
+        console.log("Space.toggleAxes");
+
+        var axes = this.scene.getObjectByName( "axes" );
+
+        if ( this.axesVisible ) {
+            axes.visible = false;
+            this.axesVisible = false;
+        } else {
+            axes.visible = true;
+            this.axesVisible = true;            
+        }
+
+    },
+
+    changeOpacity: function ( char, value ) {
+
+        console.log("Space.changeOpacity", char, value);
+
+        var layers = this.scene.children;
+        _.each( layers, function( layer ){
+            // IF LAYER NAME CONTAINS CHAR
+            if ( layer.name.indexOf( char ) > -1 ) {
+                _.each( layer.material.materials, function ( material ) {
+                    // IF VALUE IS NOT ZERO: CHANGE ONLY VISIBLE LAYER
+                    if ( value > 0 && material.opacity > 0 ) {
+                        material.opacity = value;
+                    }
+                });
+            }
+        });
+
+    },
+
+    changeSize: function ( cube ) {
+
+        console.log("Space.changeSize", cube );
+
+    },   
 
 }

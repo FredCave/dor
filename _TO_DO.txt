@@ -1,8 +1,34 @@
-### CHANGE SIZE OF WHOLE CUBE
+
 
 ### ON SLIDER DRAG TOOLTIP SHOWS VALUE
 
 ### TOGGLE WHOLE CUBE + CHANGE OPACITY
+
+
+
+### CHANGE SIZE OF WHOLE CUBE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

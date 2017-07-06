@@ -34,7 +34,20 @@ var Page = {
 
     	});
 
-    	// TOGGLE ALL BUTTONS
+        // TOGGLE CUBES
+        $("#buttons").on( "click", "label", function() {
+
+            if ( !$(this).hasClass("off") ) {
+                $(this).addClass("off").siblings(".button").addClass("off");
+                Space.hideCube( $(this).text() );
+            } else {
+                $(this).removeClass("off").siblings(".button").removeClass("off");
+                Space.showCube( $(this).text() );
+            }
+
+        });
+
+    	// TOGGLE CONTROLS
        	$("#buttons_toggle").on( "click", function() {
 
     		if ( !$(this).hasClass("off") ) {
@@ -44,10 +57,22 @@ var Page = {
 				$(this).text("Hide Controls").removeClass("off");
 				$("#buttons").show();
     		}
+            Space.toggleAxes();
 
     	});
 
-    	// LAYER NAME ON HOVER
+        // LABEL ON HOVER
+        $("#buttons").on( "mouseover", "label", function( e ) {
+
+            $("#tooltip").text( "Toggle All" ).css({
+                "top"       : e.clientY + 12, 
+                "left"      : e.clientX + 12,
+                "display"   : "inline-block"
+            });
+
+        });
+
+    	// BUTTON ON HOVER
     	$("#buttons").on( "mouseover", ".button", function( e ) {
 
     		var layerName = $(this).attr("data-name");
@@ -56,7 +81,6 @@ var Page = {
 				"left" 		: e.clientX + 12,
 				"display" 	: "inline-block"
 			});
-    		console.log( 54, e.clientX, e.clientY, layerName );
 
     	});
 
@@ -79,7 +103,7 @@ var Page = {
     	});  
 
     	// RESET TOOLTIP
-    	$("#buttons").on( "mouseout", "div", function( e ) {
+    	$("#buttons").on( "mouseout", "div, label", function( e ) {
 
 			$("#tooltip").text("").css({
 				"top" 		: "", 
@@ -154,18 +178,82 @@ var Page = {
 
     	console.log("Page.controlsInit");
 
+        var self = this;
+
 		$(".cube_opacity").slider({
 			min 	: 0,
-			max 	: 1,
-			value 	: 1,			
+			max 	: 100,
+			value 	: 100,
+            slide: function( event, ui ) {
+                self.opacitySlide( event, ui );
+            },
+            stop: function( event, ui ) {
+                self.opacitySlideStop( event, ui );
+            }			
 		});
 		$(".cube_size").slider({
 			min 	: 500,
 			max 	: 20000,
 			value 	: 5000,
+            slide: function( event, ui ) {
+                self.sizeSlide( event, ui );    
+            },
+            stop: function( event, ui ) {
+                self.sizeSlideStop( event, ui );
+            }
 		});
 
-    }
+    },
+
+    opacitySlide: function ( e, ui ) {
+
+        console.log("Page.opacitySlide");
+
+        // SHOW TOOLTIP
+        var value = ui.value;
+        $("#tooltip").text( value ).css({
+            "top"       : e.clientY + 12, 
+            "left"      : e.clientX + 12,
+            "display"   : "inline-block"
+        });
+
+    },
+
+    sizeSlide: function ( e, ui ) {
+
+        console.log("Page.sizeSlide");
+
+        // SHOW TOOLTIP
+        var value = ui.value;
+        $("#tooltip").text( value ).css({
+            "top"       : e.clientY + 12, 
+            "left"      : e.clientX + 12,
+            "display"   : "inline-block"
+        });
+
+    }, 
+
+    opacitySlideStop: function ( e, ui ) {
+
+        console.log("Page.opacitySlideStop");
+
+        // GET TARGET CUBE
+        var cube = $(e.target).parents("li").attr("data-letter");
+
+        Space.changeOpacity( cube, ui.value / 100 );
+
+    },
+
+    sizeSlideStop: function ( e, ui ) {
+
+        console.log("Page.sizeSlideStop");
+
+        // GET TARGET CUBE
+        var cube = $(e.target).parents("li").attr("data-letter");
+
+        Space.changeSize( cube, ui.value );
+
+    },   
 
 }
 
