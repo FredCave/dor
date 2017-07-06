@@ -22,56 +22,29 @@
             "button_label": "Add Layer",
             "sub_fields": [
                 {
-                    "key": "field_595ce1f3084b5",
-                    "label": "Top",
-                    "name": "layer_top",
-                    "type": "image",
+                    "key": "field_595e21b97f5ee",
+                    "label": "Layer Name",
+                    "name": "layer_name",
+                    "type": "text",
                     "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
+                    "required": "",
+                    "conditional_logic": "",
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
-                },
-                {
-                    "key": "field_595ce240084ba",
-                    "label": "Bottom",
-                    "name": "layer_bottom",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
                 },
                 {
                     "key": "field_595ce23f084b9",
-                    "label": "North",
+                    "label": "North (0001)",
                     "name": "layer_north",
                     "type": "image",
                     "instructions": "",
@@ -94,9 +67,9 @@
                     "mime_types": ""
                 },
                 {
-                    "key": "field_595ce23f084b8",
-                    "label": "East",
-                    "name": "layer_east",
+                    "key": "field_595ce23e084b6",
+                    "label": "West (0002)",
+                    "name": "layer_west",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -119,7 +92,7 @@
                 },
                 {
                     "key": "field_595ce23e084b7",
-                    "label": "South",
+                    "label": "South (0003)",
                     "name": "layer_south",
                     "type": "image",
                     "instructions": "",
@@ -142,9 +115,57 @@
                     "mime_types": ""
                 },
                 {
-                    "key": "field_595ce23e084b6",
-                    "label": "West",
-                    "name": "layer_west",
+                    "key": "field_595ce23f084b8",
+                    "label": "East (0004)",
+                    "name": "layer_east",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_595ce240084ba",
+                    "label": "Bottom (0005)",
+                    "name": "layer_bottom",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_595ce1f3084b5",
+                    "label": "Top (0006)",
+                    "name": "layer_top",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -201,5 +222,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1499259575
+    "modified": 1499342231
 }

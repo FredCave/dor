@@ -63,11 +63,53 @@ html, body {
 
 /* line 25, style.scss */
 #space {
-  border: 1px solid green;
   background-color: black;
   width: 100%;
   height: 100%;
   position: absolute;
   left: 0px;
   top: 0px;
+}
+
+/* line 35, style.scss */
+#buttons {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+}
+/* line 40, style.scss */
+#buttons li {
+  height: 24px;
+  margin-bottom: 24px;
+}
+/* line 44, style.scss */
+#buttons li label, #buttons li .button {
+  background: white;
+  width: 24px;
+  height: 100%;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 6px 4px 2px 4px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* line 62, style.scss */
+#buttons li label {
+  background-color: #bbb;
+}
+/* line 65, style.scss */
+#buttons li .button {
+  cursor: pointer;
+}
+/* line 68, style.scss */
+#buttons li .button.off {
+  background: black;
+  color: white;
 }
