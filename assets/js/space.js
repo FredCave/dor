@@ -18,6 +18,8 @@ var Space = {
 
         console.log("Space.init");
 
+        var self = this;
+
         // SCENE
         this.scene = new THREE.Scene();
         
@@ -26,7 +28,7 @@ var Space = {
         var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
         this.camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
         this.scene.add( this.camera );
-        this.camera.position.set(0,150,400);
+        this.camera.position.set( 0, -100, 400 ); // 0, 150, 400
         this.camera.lookAt( this.scene.position );  
 
         // RENDERER
@@ -50,7 +52,7 @@ var Space = {
         this.scene.add( axes );
         axes.visible = false;
 
-        this.generateCube();
+        // this.generateCube();
 
     }, 
 
@@ -59,6 +61,8 @@ var Space = {
         // console.log("Space.animate");
 
         var self = this;
+
+
 
         // REDUCE FRAME RATE TO 24 FPS
         setTimeout( function() {
@@ -70,7 +74,8 @@ var Space = {
         }, 1000 / 24 );
 
         this.render();       
-        this.update();        
+        this.update();   
+        TWEEN.update();     
 
     }, 
 
@@ -128,15 +133,12 @@ var Space = {
 
     }, 
 
-    generateLayer : function ( layerData, layerIndex ) {
+    generateLayer : function ( layerData ) {
 
         console.log("Space.generateLayer");
 
-        // console.log( 121, layerData );
-
-        var cubeSize = 5000;
-
-        var dataComplete = true;
+        var cubeSize = 5000, 
+            dataComplete = true;
 
         // SORT THROUGH DATA
             // LOAD IMAGE SRCs INTO ARRAY
@@ -144,8 +146,10 @@ var Space = {
 
         // LOOP THROUGH LAYER OBJECT
         var sources = [], 
-            layerName;
+            layerName, 
+            layerId;
         for ( var index in layerData ) {
+            
             if ( layerData.hasOwnProperty(index) ) {
                 if ( layerData[index] === false ) {
                     // CHECK IF IMAGES ARE LOADED
@@ -153,8 +157,10 @@ var Space = {
                     console.log( 135, "Data Incomplete" );
                 } else if ( index === "name" ) {
                     layerName = layerData[index];
+                } else if ( index === "ID" ) {
+                    layerId = layerData[index];
                 } else {
-                    sources.push( layerData[index].url );                    
+                    sources.push( layerData[index].sizes.extralarge );                    
                 }
             }
         }
@@ -178,11 +184,9 @@ var Space = {
             var box = new THREE.Mesh( geometry, material );
 
             // SET NAME
-            box.name = String.fromCharCode( 65 + this.cubeIndex ) + layerIndex;
-
-            // console.log( 159, box );
-
+            box.name = layerId;
             this.scene.add( box );
+            box.rotateY(180);
 
             // ADD BUTTON IN BUTTON WRAPPER
             Controls.addLayerButton( layerName );
@@ -215,6 +219,47 @@ var Space = {
 
     },
 
+    fadeInLayer: function ( name, time ) {
+
+        console.log("Space.fadeInLayer", name, time );
+
+        // GET LAYER DATA
+        var cube = name[0].charCodeAt(0) - 65;
+
+        console.log( 225, cube);
+
+        var layer = _.findWhere( Page.cubeData[cube],{ ID:name } );
+
+        console.log( 229, Page.cubeData[cube] );
+
+        // GENERATE LAYER
+        this.generateLayer( layer );
+        // FADE IN 
+        var generatedCube = this.scene.getObjectByName( name );
+        for ( var i = 0; i < generatedCube.material.materials.length; i++ ) {
+            new TWEEN.Tween( generatedCube.material.materials[i] ).to({ opacity: 1 }, time ).start();
+        }
+
+    },
+
+    fadeOutLayer: function ( name, time ) {
+
+        console.log("Space.fadeOutLayer", name, time );
+
+        var layer = this.scene.getObjectByName( name ),
+            self = this;
+
+        for ( var i = 0; i < layer.material.materials.length; i++ ) {
+            new TWEEN.Tween( layer.material.materials[i] ).to({ opacity: 0 }, time ).start();
+        }
+        // AFTER FADE OUT: REMOVE LAYER FROM SCENE
+        _.delay( function(){
+            self.scene.remove( self.scene.getObjectByName(name) );
+            console.log("Layer removed from scene.");
+        }, time + 1000 );
+
+    },
+
     hideCube: function ( char ) {
 
         console.log("Space.hideCube", char );
@@ -236,7 +281,6 @@ var Space = {
         console.log("Space.showCube", char );
 
         var layers = this.scene.children;
-
         _.each( layers, function( layer ){
             // IF LAYER NAME CONTAINS CHAR
             if ( layer.name.indexOf( char ) > -1 ) {
@@ -301,5 +345,32 @@ var Space = {
         });
 
     },   
+
+    rotateLayer: function ( layerId ) {
+
+        console.log("Space.rotateLayer", layerId);
+
+        // var layer = this.scene.getObjectByName(layerId);
+
+        // var tween = new TWEEN.Tween(layer.rotation)
+        //     .to({ y: "-" + Math.PI / 2 }, 30000 ) // relative animation
+        //     .start();
+
+    },
+
+    layerPhase: function ( left, up ) {
+
+        // console.log("Space.layerPhase", left, up );
+
+    //     // CALLED FROM ORBITCONTROLS.JS
+
+    //     // APPLIES TO ONLY ONE LAYER
+    //     // var layerId = Page.currentRandomLayers[0], 
+    //     //     layer = this.scene.getObjectByName(layerId);
+
+    //     // console.log( 358, layerId, layer );
+    //     // layer.rotateY( left );
+
+    }
 
 }

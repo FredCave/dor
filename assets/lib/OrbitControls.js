@@ -263,17 +263,20 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		event.preventDefault();
 
-		
-		
 		if ( state === STATE.ROTATE ) {
 
 			rotateEnd.set( event.clientX, event.clientY );
 			rotateDelta.subVectors( rotateEnd, rotateStart );
 
-			scope.rotateLeft( 2 * Math.PI * rotateDelta.x / PIXELS_PER_ROUND * scope.userRotateSpeed );
-			scope.rotateUp( 2 * Math.PI * rotateDelta.y / PIXELS_PER_ROUND * scope.userRotateSpeed );
+			var left = 2 * Math.PI * rotateDelta.x / PIXELS_PER_ROUND * scope.userRotateSpeed;
+			var up = 2 * Math.PI * rotateDelta.y / PIXELS_PER_ROUND * scope.userRotateSpeed;
+
+			scope.rotateLeft( left );
+			scope.rotateUp( up );
 
 			rotateStart.copy( rotateEnd );
+
+			Space.layerPhase( left, up );
 
 		} else if ( state === STATE.ZOOM ) {
 

@@ -58,7 +58,7 @@ function create_post_types() {
 
 // ADD CUSTOM IMAGE SIZES
 add_theme_support( 'post-thumbnails' );
-add_image_size( 'extralarge', 1200, 1200 );
+add_image_size( 'extralarge', 1020, 1020 );
 add_image_size( 'ultralarge', 1600, 1600 );
 
 // END POINTS
@@ -91,6 +91,7 @@ function get_cubes () {
 
                         // ORDER USED IN JS CODE
                         // ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+                        $layer["layer-" . $j]["ID"]        = get_sub_field("layer_id");
                         $layer["layer-" . $j]["name"]      = get_sub_field("layer_name");
 
                         // LOOP THROUGH IMAGES

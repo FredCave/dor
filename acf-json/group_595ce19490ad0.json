@@ -22,6 +22,27 @@
             "button_label": "Add Layer",
             "sub_fields": [
                 {
+                    "key": "field_59821fd09afbf",
+                    "label": "ID",
+                    "name": "layer_id",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
+                },
+                {
                     "key": "field_595e21b97f5ee",
                     "label": "Layer Name",
                     "name": "layer_name",
@@ -222,5 +243,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1499342231
+    "modified": 1501700216
 }
