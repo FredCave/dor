@@ -12,7 +12,7 @@ var Space = {
     clock       : new THREE.Clock(), 
 
     cubeIndex   : 0, 
-    axesVisible : true,
+    axesVisible : false,
 
     init : function () {
 
@@ -48,6 +48,7 @@ var Space = {
         var axes = new THREE.AxisHelper(100);
         axes.name = "axes";
         this.scene.add( axes );
+        axes.visible = false;
 
         this.generateCube();
 
@@ -99,7 +100,7 @@ var Space = {
         var thisCube = Page.cubeData[ this.cubeIndex ];
 
         // ADD LI IN BUTTON WRAPPER
-        Page.addCubeButtons();
+        Controls.addCubeButtons();
 
         // LAYER INDEX TO IDENTIFY LAYERS
         var layerIndex = 1;
@@ -114,14 +115,14 @@ var Space = {
         });
 
         // ADD CUBE CONTROLS AT END OF ROW
-        Page.addControls();
+        Controls.addControls();
 
         this.cubeIndex++;
         if ( this.cubeIndex < 6 ) {
             this.generateCube();
         } else if ( this.cubeIndex === 6  ) {
 
-            Page.controlsInit();
+            Controls.slidersInit();
 
         }
 
@@ -184,7 +185,7 @@ var Space = {
             this.scene.add( box );
 
             // ADD BUTTON IN BUTTON WRAPPER
-            Page.addLayerButton( layerName );
+            Controls.addLayerButton( layerName );
 
         }
 
@@ -220,7 +221,6 @@ var Space = {
 
         var layers = this.scene.children;
         _.each( layers, function( layer ){
-            console.log( 222, layer );
             // IF LAYER NAME CONTAINS CHAR
             if ( layer.name.indexOf( char ) > -1 ) {
                 _.each( layer.material.materials, function ( material ) {
@@ -236,6 +236,7 @@ var Space = {
         console.log("Space.showCube", char );
 
         var layers = this.scene.children;
+
         _.each( layers, function( layer ){
             // IF LAYER NAME CONTAINS CHAR
             if ( layer.name.indexOf( char ) > -1 ) {
@@ -282,9 +283,22 @@ var Space = {
 
     },
 
-    changeSize: function ( cube ) {
+    changeSize: function ( char, value ) {
 
-        console.log("Space.changeSize", cube );
+        console.log("Space.changeSize", char, value );
+
+        var layers = this.scene.children;
+        // INVERT VALUE (?) – CLOSER TO 0 IS BIGGER
+        value = ( value + 1 ) * 5000;
+        _.each( layers, function( layer ){
+            // IF LAYER NAME CONTAINS CHAR
+            if ( layer.name.indexOf( char ) > -1 ) {
+                console.log( 292, layer );
+                layer.geometry.depth = value;
+                layer.geometry.height = value;
+                layer.geometry.width = value;
+            }
+        });
 
     },   
 

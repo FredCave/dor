@@ -1,12 +1,6 @@
+RANDOM MOVEMENTS
 
-
-### ON SLIDER DRAG TOOLTIP SHOWS VALUE
-
-### TOGGLE WHOLE CUBE + CHANGE OPACITY
-
-
-
-### CHANGE SIZE OF WHOLE CUBE
+GLITCHES ON TRANSITIONS
 
 
 
@@ -17,6 +11,35 @@
 
 
 
+timeline - EVEN
+[ in sync with temple layers and sound ]
+
+A2 appears between 00:00-00:30
+
+B2 appears between 00:30-01:10
+
+C2 appears between 01:10-01:45
+rest of A B C layers randomly comes in and out ___
+
+*D1 appears between 1:45 – 2:15
+
+E2 appears between 02:15 -2:50
+rest of D E laters randomly comes in and out
+__
+
+2:50 – 3:30
+rest of D and E layers fade out, F layers come in ___
+
+3:30 - 4:11
+F layers fading out: F 8 fade out first
+F layer 4 (stone) stays last
+__
+
+4:11- 4:21
+F layer 4 dissapear, cube I appear
+Sound goes in loop
+Work ends.
+*note that D1 is a temple layer, not D2, if this creates a problem in the code you can change its number and switch between them.
 
 
 
@@ -43,7 +66,6 @@
 
 
 
-### MOUSEWHEEL COMMENTED OUT OF CONTROLS.JS
 
 
 
@@ -51,10 +73,4 @@
 
 
 
-### SEND BLENDER SCRIPT + INSTRUCTIONS
 
-### SAVE EACH LAYER OF PSD AS TRANSPARENT PNG
-### OPEN BLENDER FILE
-	### CHANGE TEXTURE SOURCE IN TEXTURE TAB
-	### CLICK ANIMATE IN RENDER TAB
-	### PNGs EXPORTED TO ROOT OF BLENDER FOLDER – TRANSFER TO RELEVANT FOLDER

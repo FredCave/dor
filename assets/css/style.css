@@ -78,8 +78,9 @@ html, body {
   position: fixed;
   top: 24px;
   left: 24px;
+  display: none;
 }
-/* line 42, style.scss */
+/* line 43, style.scss */
 #buttons_wrapper div, #buttons_wrapper label, #buttons_wrapper .button {
   background-color: white;
   height: 24px;
@@ -95,31 +96,31 @@ html, body {
   -ms-user-select: none;
   user-select: none;
 }
-/* line 58, style.scss */
+/* line 59, style.scss */
 #buttons_wrapper #buttons_toggle {
   padding: 4px 8px 2px 8px;
 }
-/* line 61, style.scss */
+/* line 62, style.scss */
 #buttons_wrapper .button {
   width: 24px;
 }
-/* line 64, style.scss */
+/* line 65, style.scss */
 #buttons_wrapper label {
   background-color: #bbb;
   width: 24px;
 }
-/* line 68, style.scss */
+/* line 69, style.scss */
 #buttons_wrapper .cube_control {
   border-radius: 0;
   width: 48px;
 }
-/* line 72, style.scss */
+/* line 73, style.scss */
 #buttons_wrapper .off {
   background: black;
   color: white;
 }
 
-/* line 78, style.scss */
+/* line 79, style.scss */
 .ui-slider-handle {
   top: 1px !important;
   margin-left: -6px !important;
@@ -128,7 +129,7 @@ html, body {
   outline: 0 none !important;
 }
 
-/* line 86, style.scss */
+/* line 87, style.scss */
 #tooltip {
   background-color: beige;
   height: 24px;

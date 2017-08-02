@@ -1,153 +1,22 @@
 var Page = {
 
-	cubeButtonsIndex: 1,
-
-	cubeIndex: 0, 
-
-	layerNo: 1, 
+	// cubeIndex: 0, 
 
     init: function () {
 
         console.log("Page.init");
 
-        this.bindEvents();
+        this.startAudio();
+        this.startAnimation();
+
+        // Controls.init();
 
         // LOAD CUBE DATA
-        this.loadCubeData();
+        // this.loadCubeData();
 
     },
 
-    bindEvents: function () {
-
-    	console.log("Page.bindEvents");
-
-    	// TOGGLE LAYERS
-    	$("#buttons").on( "click", ".button", function() {
-
-    		if ( !$(this).hasClass("off") ) {
-    			$(this).addClass("off");
-    			Space.hideLayer( $(this).attr("id") );
-    		} else {
-				$(this).removeClass("off");
-				Space.showLayer( $(this).attr("id") );
-    		}
-
-    	});
-
-        // TOGGLE CUBES
-        $("#buttons").on( "click", "label", function() {
-
-            if ( !$(this).hasClass("off") ) {
-                $(this).addClass("off").siblings(".button").addClass("off");
-                Space.hideCube( $(this).text() );
-            } else {
-                $(this).removeClass("off").siblings(".button").removeClass("off");
-                Space.showCube( $(this).text() );
-            }
-
-        });
-
-    	// TOGGLE CONTROLS
-       	$("#buttons_toggle").on( "click", function() {
-
-    		if ( !$(this).hasClass("off") ) {
-    			$(this).text("Show Controls").addClass("off");
-    			$("#buttons").hide();
-    		} else {
-				$(this).text("Hide Controls").removeClass("off");
-				$("#buttons").show();
-    		}
-            Space.toggleAxes();
-
-    	});
-
-        // LABEL ON HOVER
-        $("#buttons").on( "mouseover", "label", function( e ) {
-
-            $("#tooltip").text( "Toggle All" ).css({
-                "top"       : e.clientY + 12, 
-                "left"      : e.clientX + 12,
-                "display"   : "inline-block"
-            });
-
-        });
-
-    	// BUTTON ON HOVER
-    	$("#buttons").on( "mouseover", ".button", function( e ) {
-
-    		var layerName = $(this).attr("data-name");
-			$("#tooltip").text( layerName ).css({
-				"top" 		: e.clientY + 12, 
-				"left" 		: e.clientX + 12,
-				"display" 	: "inline-block"
-			});
-
-    	});
-
-    	// SLIDERS ON HOVER
-    	$("#buttons").on( "mouseover", ".cube_control", function( e ) {
-
-    		var text;
-    		if ( $(this).hasClass("cube_opacity") ) {
-    			text = "Opacity";
-    		} else if ( $(this).hasClass("cube_size") ) {
-				text = "Size";
-    		}
-
-			$("#tooltip").text( text ).css({
-				"top" 		: e.clientY + 12, 
-				"left" 		: e.clientX + 12,
-				"display" 	: "inline-block"
-			});
-
-    	});  
-
-    	// RESET TOOLTIP
-    	$("#buttons").on( "mouseout", "div, label", function( e ) {
-
-			$("#tooltip").text("").css({
-				"top" 		: "", 
-				"left" 		: "",
-				"display" 	: ""
-			});
-
-    	});  	
-
-    },
-
-    addCubeButtons: function () {
-
-    	console.log("Page.addCubeButtons");
-
-    	// CUBE NUMBER TRANSLATED TO LETTER
-    	var letter = String.fromCharCode( 64 + this.cubeButtonsIndex );
-    	$("#buttons").append("<li data-letter='" + letter + "'><label>" + letter + "</label></li>");
-    	this.cubeButtonsIndex++;
-    	// RESET LAYER NUMBERS
-    	this.layerNo = 1;
-
-    },
-
-    addLayerButton: function ( name ) {
-
-    	console.log("Page.addLayerButton");
-
-    	var row = $("#buttons li:last-child");
-    	row.append("<div class='button off' data-name='" + name + "' id='" + row.data("letter") + this.layerNo + "'>" + this.layerNo + "</div>");
-    	this.layerNo++;
-
-    },
-
-    addControls: function () {
-
-    	console.log("Page.addControls");
-    	
-    	var row = $("#buttons li:last-child");
-    	row.append("<div class='cube_control cube_opacity'></div><div class='cube_control cube_size'></div>");
-
-    },
-
-	loadCubeData: function () {
+    loadCubeData: function () {
 
         console.log("Page.loadCubeData");
 
@@ -167,93 +36,118 @@ var Page = {
 
     cubeDataLoaded: function () {
 
-    	console.log("Page.cubeDataLoaded");
+        console.log("Page.cubeDataLoaded");
 
-		Space.init();
-		Space.animate();
+        Space.init();
+        Space.animate();
+
+        this.startAudio();
 
     },
 
-    controlsInit: function () {
+    startAudio: function () {
 
-    	console.log("Page.controlsInit");
+        console.log("Page.startAudio");
 
         var self = this;
 
-		$(".cube_opacity").slider({
-			min 	: 0,
-			max 	: 100,
-			value 	: 100,
-            slide: function( event, ui ) {
-                self.opacitySlide( event, ui );
-            },
-            stop: function( event, ui ) {
-                self.opacitySlideStop( event, ui );
-            }			
-		});
-		$(".cube_size").slider({
-			min 	: 500,
-			max 	: 20000,
-			value 	: 5000,
-            slide: function( event, ui ) {
-                self.sizeSlide( event, ui );    
-            },
-            stop: function( event, ui ) {
-                self.sizeSlideStop( event, ui );
-            }
-		});
+        // AUDIO LENGTH = 4:23 (263000)
+
+        $("#main_audio").prop("volume", 0.1);
+        $("#main_audio")[0].play();
+        $("#main_audio").animate({
+            volume : 1
+        }, 1000 );
+
+        // START LOOP AFTER DEFINED TIME (4:20)
+        setTimeout( function(){
+
+            self.startAudioLoop();
+
+        }, 260000 );
 
     },
 
-    opacitySlide: function ( e, ui ) {
+    startAudioLoop: function () {
 
-        console.log("Page.opacitySlide");
+        console.log("Page.startAudioLoop");
 
-        // SHOW TOOLTIP
-        var value = ui.value;
-        $("#tooltip").text( value ).css({
-            "top"       : e.clientY + 12, 
-            "left"      : e.clientX + 12,
-            "display"   : "inline-block"
+        // FADE IN FIRST
+        $("#loop_audio_1").prop("volume", 0.1);
+        $("#loop_audio_1")[0].play();
+        $("#loop_audio_1").animate({
+            volume : 1
+        }, 10000, function(){
+            var current = 2;
+            // PLAY NEXT
+            $("#loop_audio_" + current)[0].play();
+            // START LOOP
+            setInterval( function(){
+                // TOGGLE AUDIOS
+                current === 1 ? current = 2 : current = 1;
+                $("#loop_audio_" + current)[0].play();
+                console.log( 81, current );
+            }, 10000 );
         });
+            
+    },
+
+    startAnimation: function () {
+
+        console.log("Page.startAnimation");
+
+        this.sceneOne();
+        _.delay( this.sceneTwo, 30000 ); // 00:30
 
     },
 
-    sizeSlide: function ( e, ui ) {
+    sceneOne: function () {
 
-        console.log("Page.sizeSlide");
-
-        // SHOW TOOLTIP
-        var value = ui.value;
-        $("#tooltip").text( value ).css({
-            "top"       : e.clientY + 12, 
-            "left"      : e.clientX + 12,
-            "display"   : "inline-block"
-        });
+        console.log("Page.sceneOne");
 
     }, 
 
-    opacitySlideStop: function ( e, ui ) {
+    sceneTwo: function () {
 
-        console.log("Page.opacitySlideStop");
+        console.log("Page.sceneTwo");
 
-        // GET TARGET CUBE
-        var cube = $(e.target).parents("li").attr("data-letter");
+    }, 
 
-        Space.changeOpacity( cube, ui.value / 100 );
+    sceneThree: function () {
 
-    },
+        console.log("Page.sceneThree");
 
-    sizeSlideStop: function ( e, ui ) {
+    }, 
 
-        console.log("Page.sizeSlideStop");
+    sceneFour: function () {
 
-        // GET TARGET CUBE
-        var cube = $(e.target).parents("li").attr("data-letter");
+        console.log("Page.sceneFour");
 
-        Space.changeSize( cube, ui.value );
+    }, 
 
-    },   
+    sceneFive: function () {
+
+        console.log("Page.sceneFive");
+
+    }, 
+
+    sceneSix: function () {
+
+        console.log("Page.sceneSix");
+
+    }, 
+
+    sceneSeven: function () {
+
+        console.log("Page.sceneSeven");
+
+    }, 
+
+    sceneEight: function () {
+
+        console.log("Page.sceneEight");
+
+    }, 
 
 }
 
